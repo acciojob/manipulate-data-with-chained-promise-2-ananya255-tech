@@ -1,38 +1,44 @@
-//your JS code here. If required.
-arr=[1,2,3,4]
+let arr = [1, 2, 3, 4];
 
-let promise0=new Promise((resolve,reject)=>{
-	setTimeout(()=>{
-		resolve(arr)
-	},3000)
-})
-let promise1=new Promise((resolve,reject)=>{
-	setTimeout(()=>{
-		let evenNumber=arr.filter((num)=>num%2===0)
+function promise() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(arr);
+        }, 3000);
+    });
+}
 
-		document.getElementById("output").innerText=evenNumber
+promise()
+    .then((data) => {
 
-		resolve(evenNumber)
-	
-	},1000)
-})
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
 
+                let evenNumber = data.filter((num) => num % 2 === 0);
 
-promise0.then((data)=>{
-	console.log(data)
-	return promise1
-}).then((data1)=>{
-	return new Promise((resolve,reject)=>{
-	setTimeout(()=>{
-		let result=data!.map((num)=>num*2)
+                document.getElementById("output").innerText = evenNumber.join(",");
 
-		document.getElementById("output").innerText=result
+                resolve(evenNumber);
 
-		resolve(result)
-	
-	},2000)
-})
-}).then((data3)=>{
-	console.log(data3)
-})
-		
+            }, 1000);
+        });
+
+    })
+    .then((data1) => {
+
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+
+                let result = data1.map((num) => num * 2);
+
+                document.getElementById("output").innerText = result.join(",");
+
+                resolve(result);
+
+            }, 2000);
+        });
+
+    })
+    .then((data2) => {
+        console.log(data2);
+    });
